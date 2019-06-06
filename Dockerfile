@@ -6,7 +6,7 @@ RUN set -e \
 #&& apt-get install -y --no-install-recommends jq libjemalloc1 \ # hat bereits 
 #&& buildDeps="make gcc g++ wget ruby-dev" \
 #&& apt-get install -y --no-install-recommends $buildDeps \
-#&& gem install -N fluentd -v "1.2.0" \
+ && gem install -N fluentd -v "1.5.1" \
 #&& gem install -N fluent-plugin-systemd -v "0.3.1" \ # hat bereits 1.0.1
 #&& gem install -N fluent-plugin-concat -v "2.2.2" \ # hat bereits 2.3.0
 #&& gem install -N fluent-plugin-prometheus -v "1.0.1" \ # hat bereits 1.3.0
