@@ -2,7 +2,7 @@
 
 Extend [vmware/kube-fluentd-operator](https://github.com/vmware/kube-fluentd-operator) with more plugins.
 
-Docker Hub: [cssinsurance/kube-fluentd-operator](https://cloud.docker.com/u/cssinsurance/repository/docker/cssinsurance/kube-fluentd-operator).
+Docker Hub: [cssinsurance/kube-fluentd-operator](https://hub.docker.com/r/cssinsurance/kube-fluentd-operator).
 
 ## Build
 
