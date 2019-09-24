@@ -19,3 +19,5 @@ RUN set -e \
 #&& rm -rf /var/lib/apt/lists/* \
 #&& rm -rf /tmp/* /var/tmp/* $GEM_HOME/cache/*.gem \
  && echo OK
+ 
+COPY templates/kubernetes.conf templates/
