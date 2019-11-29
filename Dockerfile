@@ -19,3 +19,11 @@ RUN set -e \
 #&& rm -rf /var/lib/apt/lists/* \
 #&& rm -rf /tmp/* /var/tmp/* $GEM_HOME/cache/*.gem \
  && echo OK
+
+# Patch configuration files:
+# - Include kube-system.conf after the configs of all other namespaces. 
+#   The original behaviour was to include kube-system.conf before all other namespaces.
+# - Disable inotify based watcher (i.e. only use timers) for all tail plugins. 
+RUN set -e \
+ && sed -i '/^#.*kube-system/,/^$/{H; d} ; /#.*namespace annotations/,/^$/{ /^$/G }' /templates/fluent.conf \
+ && sed -i '/@type tail/a\ \ enable_stat_watcher false' /templates/kubernetes.conf
