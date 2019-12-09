@@ -23,7 +23,7 @@ RUN set -e \
 # Patch configuration files:
 # - Include kube-system.conf after the configs of all other namespaces. 
 #   The original behaviour was to include kube-system.conf before all other namespaces.
-# - Disable inotify based watcher (i.e. only use timers) for all tail plugins. 
+# - https://github.com/vmware/kube-fluentd-operator/pull/91
 RUN set -e \
  && sed -i '/^#.*kube-system/,/^$/{H; d} ; /#.*namespace annotations/,/^$/{ /^$/G }' /templates/fluent.conf \
- && sed -i '/@type tail/a\ \ enable_stat_watcher false' /templates/kubernetes.conf
+ && sed -i '/# cri-o/,/# docker/{ s!format1.*!format1 /^(?<partials>([^\\n]+ (stdout|stderr) P [^\\n]+\\n)*)/!; s!format2.*!format2 /(?<time>[^\\n]+) (?<stream>stdout|stderr) F (?<log>[^\\n]*)/! }' /templates/kubernetes.conf
