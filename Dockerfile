@@ -1,4 +1,4 @@
-FROM jvassev/kube-fluentd-operator:v1.11.0
+FROM vmware/kube-fluentd-operator:v1.12.0
 
 RUN set -e \
  && apt-get update \
@@ -23,7 +23,5 @@ RUN set -e \
 # Patch configuration files:
 # - Include kube-system.conf after the configs of all other namespaces. 
 #   The original behaviour was to include kube-system.conf before all other namespaces.
-# - https://github.com/vmware/kube-fluentd-operator/pull/91
 RUN set -e \
- && sed -i '/^#.*kube-system/,/^$/{H; d} ; /#.*namespace annotations/,/^$/{ /^$/G }' /templates/fluent.conf \
- && sed -i '/# cri-o/,/# docker/{ s!format1.*!format1 /^(?<partials>([^\\n]+ (stdout|stderr) P [^\\n]+\\n)*)/!; s!format2.*!format2 /(?<time>[^\\n]+) (?<stream>stdout|stderr) F (?<log>[^\\n]*)/! }' /templates/kubernetes.conf
+ && sed -i '/^#.*kube-system/,/^$/{H; d} ; /#.*namespace annotations/,/^$/{ /^$/G }' /templates/fluent.conf
