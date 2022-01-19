@@ -1,11 +1,8 @@
-FROM vmware/kube-fluentd-operator:v1.12.0
+FROM vmware/kube-fluentd-operator:v1.16.2
 
 RUN set -e \
  && tdnf install -y jq \
- && gem install -N fluent-plugin-kubernetes_metadata_filter -v "2.4.1" \
- && gem uninstall fluent-plugin-kubernetes_metadata_filter -v "2.4.2" \
  && gem install -N fluent-plugin-jq -v "0.5.1" \
- && gem install -N fluent-plugin-splunk-hec -v "1.1.0" \
  && echo OK
 
 # Patch configuration files:
