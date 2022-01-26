@@ -10,5 +10,5 @@ RUN set -e \
 # - Include kube-system.conf after the configs of all other namespaces.
 #   The original behaviour was to include kube-system.conf before all other namespaces.
 RUN set -e \
- && sed -i '/^#.*kube-system/,/^$/{H; d} ; /#.*namespace annotations/,/^$/{ /^$/G }' /templates/fluent.conf \
+ && sed -i '/^#.*admin namespace/,/^$/{H; d} ; /#.*namespace annotations/,/^$/{ /^$/G }' /templates/fluent.conf \
  && sed -i '/format3/ s!/[|]!/|^!' /templates/kubernetes.conf
