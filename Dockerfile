@@ -3,7 +3,7 @@ FROM vmware/kube-fluentd-operator:v1.16.2
 RUN set -e \
  && tdnf install -y jq sed \
  && gem install -N fluent-plugin-jq -v "0.5.1" \
- && gem install -N fluent-plugin-splunk-hec -v "1.2.9" \
+ && gem install -N fluent-plugin-splunk-hec -v "1.2.10" \
  && echo OK
 
 # Patch configuration files:
