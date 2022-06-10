@@ -1,14 +1,13 @@
-FROM vmware/kube-fluentd-operator:v1.16.2
+FROM vmware/kube-fluentd-operator:v1.16.6
 
 RUN set -e \
  && tdnf install -y jq sed \
  && gem install -N fluent-plugin-jq -v "0.5.1" \
- && gem install -N fluent-plugin-splunk-hec -v "1.2.10" \
  && echo OK
 
 # Patch configuration files:
-# - Include kube-system.conf after the configs of all other namespaces.
-#   The original behaviour was to include kube-system.conf before all other namespaces.
+# - relabel all at end to allow default match in kube-system.conf (is before all other namespaces)
+# - kubelet.log of rancher is in /var/lib/rancher/rke2/agent/logs
 RUN set -e \
- && sed -i '/^#.*admin namespace/,/^$/{H; d} ; /#.*namespace annotations/,/^$/{ /^$/G }' /templates/fluent.conf \
- && sed -i '/format3/ s!/[|]!/|^!' /templates/kubernetes.conf
+  && sed -i 's/@type null/@type relabel\n  @label @DEFAULT_OUTPUT/' /templates/fluent.conf \
+  && sed -i 's!/var/log/kubelet.log!/var/lib/rancher/rke2/agent/logs/kubelet.log!' /templates/kubernetes.conf
