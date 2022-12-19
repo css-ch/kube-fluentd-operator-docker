@@ -1,4 +1,4 @@
-FROM vmware/kube-fluentd-operator:v1.16.6
+FROM vmware/kube-fluentd-operator:v1.16.8
 
 RUN set -e \
  && tdnf install -y jq sed \
