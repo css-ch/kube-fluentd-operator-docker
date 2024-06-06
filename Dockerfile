@@ -1,8 +1,9 @@
-FROM vmware/kube-fluentd-operator:v1.17.6
+FROM vmware/kube-fluentd-operator:v1.18.2
 
 RUN set -e \
  && tdnf install -y jq sed \
  && gem install -N fluent-plugin-jq -v "0.5.1" \
+ && gem install -N fluent-plugin-grafana-loki -v "1.2.20" \
  && echo OK
 
 # Patch configuration files:
