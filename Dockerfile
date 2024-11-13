@@ -4,12 +4,10 @@ RUN set -e \
  && tdnf install -y jq sed \
  && gem install -N fluent-plugin-jq -v "0.5.1" \
  && gem install -N fluent-plugin-grafana-loki -v "1.2.20" \
+ && gem uninstall fluent-plugin-splunk-hec -a -x \
+ && gem install -N fluent-plugin-splunk-hec -v "1.3.3" \
  && echo OK
-
-RUN bundle install && \
-    gem uninstall fluent-plugin-splunk-hec -a -x && \
-    gem install -N fluent-plugin-splunk-hec -v "1.3.3"
-    
+ 
 # Patch configuration files:
 # - relabel all at end to allow default match in kube-system.conf (is before all other namespaces)
 # - kubelet.log of rancher is in /var/lib/rancher/rke2/agent/logs
